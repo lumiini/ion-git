@@ -1,9 +1,3 @@
-# Copyright (c) Lumiini
-# All rights reserved.
-#
-# This file is licensed under the MIT license (found in the
-# LICENSE file in the root directory of this source tree).
-
 {
   description = "Ion shell from latest master";
 
@@ -28,17 +22,14 @@
 
           src = ion-src;
 
+          # Update this hash when the build fails with a hash mismatch.
           cargoHash = "sha256-PAi0x6MB0hVqUD1v1Z/PN7bWeAAKLxgcBNnS2p6InXs=";
 
           doCheck = false;
 
-          # Create a dummy git_revision.txt file so build.rs doesn't try to run git
-          # prePatch = ''
-          #   echo "unknown" > git_revision.txt
-          # '';
-
+          # Optional: set a custom version string
           prePatch = ''
-            echo "nixos-lumiini-1" > git_revision.txt
+            echo "nix-lumiini-1" > git_revision.txt
           '';
 
           meta = with pkgs.lib; {
@@ -51,7 +42,6 @@
       in {
         packages.default = ion;
         packages.ion = ion;
-
         apps.default = flake-utils.lib.mkApp { drv = ion; };
       }
     );
